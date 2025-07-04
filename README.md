@@ -55,86 +55,227 @@ vanta-bank/ ├── backend/ │ ├── src/ │ │ ├── controllers/
 
 ```mermaid
 erDiagram
-    USER {
+    CLIENTE {
         int id
-        string name
+        string nome
+        string cpf
         string email
-        string password
-        string phone
-        date created_at
-        date updated_at
+        string telefone
     }
-    PRODUCT {
+    ENDERECO {
         int id
-        string name
-        string description
-        float price
-        int stock
-        date created_at
-        date updated_at
-        int category_id
+        string rua
+        string numero
+        string cidade
+        string estado
+        string cep
+        int cliente_id
     }
-    ORDER {
+    USUARIO {
         int id
-        date order_date
-        float total_amount
-        string status
-        int user_id
-        int payment_id
-        int shipment_id
+        string login
+        string senha
+        string tipo
     }
-    CATEGORY {
+    FUNCIONARIO {
         int id
-        string name
-        string description
-        date created_at
-        date updated_at
+        string nome
+        string cargo
+        int usuario_id
     }
-    PAYMENT {
+    AGENCIA {
         int id
-        string method
-        float amount
-        date payment_date
-        int order_id
+        string nome
+        string endereco
     }
-    SHIPMENT {
+    CONTA {
         int id
-        string carrier
-        string tracking_number
-        date shipment_date
-        string status
-        int order_id
+        float saldo
+        date data_abertura
+        int cliente_id
+        int agencia_id
     }
-    ADDRESS {
+    CONTA_CORRENTE {
         int id
-        string street
-        string city
-        string state
-        string postal_code
-        string country
-        int user_id
+        float limite
+        int conta_id
     }
-    REVIEW {
+    CONTA_POUPANCA {
         int id
-        int rating
-        string comment
-        date review_date
-        int user_id
-        int product_id
+        float rendimento
+        int conta_id
+    }
+    CONTA_INVESTIMENTO {
+        int id
+        string tipo_investimento
+        float rentabilidade
+        int conta_id
+    }
+    TRANSACAO {
+        int id
+        float valor
+        date data
+        string tipo
+        int conta_id
+    }
+    AUDITORIA {
+        int id
+        string acao
+        date data
+        int usuario_id
+    }
+    RELATORIO {
+        int id
+        string tipo
+        date data_geracao
+        int funcionario_id
     }
 
-    USER ||--o{ ORDER : places
-    USER ||--o{ ADDRESS : has
-    PRODUCT ||--o{ REVIEW : receives
-    PRODUCT ||--o{ ORDER : includes
-    CATEGORY ||--o{ PRODUCT : categorizes
-    ORDER ||--o{ PAYMENT : has
-    ORDER ||--o{ SHIPMENT : has
-    PAYMENT ||--o{ ORDER : pays
-    SHIPMENT ||--o{ ORDER : ships
-    ADDRESS ||--o{ USER : belongs_to
-    REVIEW ||--o{ USER : writes
-    REVIEW ||--o{ PRODUCT : reviews
+    CLIENTE ||--o{ CONTA : possui
+    CLIENTE ||--o{ ENDERECO : tem
+    USUARIO ||--|| FUNCIONARIO : pertence
+    FUNCIONARIO ||--o{ RELATORIO : gera
+    USUARIO ||--o{ AUDITORIA : realiza
+    AGENCIA ||--o{ CONTA : administra
+    CONTA ||--|| CONTA_CORRENTE : especializa
+    CONTA ||--|| CONTA_POUPANCA : especializa
+    CONTA ||--|| CONTA_INVESTIMENTO : especializa
+    CONTA ||--o{ TRANSACAO : registra
+```
+
+---
+
+## 🧩 Diagrama da Camada DAO
+
+```mermaid
+classDiagram
+    class Conexao {
+        - Connection conexao
+        + conectar() Connection
+        + getConexao() Connection
+    }
+
+    class ContaDao {
+        <<abstract>>
+        - Connection conexao
+        + ContaDao()
+        + depositar(valor: float) Conta
+        + sacar(valor: float) Conta
+        + transferir(conta: Conta, valor: float) Conta
+        + extrato(conta: Conta, dataInicio: Date, dataFim: Date) List~Transacao~
+    }
+
+    class ContaPoupancaDao {
+        - Connection conexao
+        + ContaPoupanca()
+        + cadastrar(contaPoupanca: ContaPoupanca) ContaPoupanca
+        + alterar(contaPoupanca: ContaPoupanca) ContaPoupanca
+        + buscarTodos() List~ContaPoupanca~
+        + alterarStatus() ContaPoupanca
+        + buscarPorConta() ContaPoupanca
+    }
+
+    class AgenciaDao {
+        - Connection conexao
+        + Agencia()
+        + cadastrar(agencia: Agencia) Agencia
+        + alterar(agencia: Agencia) Agencia
+        + buscarTodos() List~Agencia~
+        + alterarStatus() Agencia
+        + buscarPorCodigo() Agencia
+    }
+
+    class AuditoriaDao {
+        - Connection conexao
+        + AuditoriaDao()
+        + registrar() Auditoria
+    }
+
+    class ClienteDao {
+        - Connection conexao
+        + ClienteDao()
+        + cadastrar(cliente: Cliente) Cliente
+        + alterar(cliente: Cliente) Cliente
+        + buscarTodos() List~Cliente~
+        + buscarPorNome(nome: String) List~Cliente~
+        + buscarPorId(id: int) Cliente
+        + excluir(id: int) boolean
+        + alterarStatus(id: int) Cliente
+    }
+
+    class FuncionarioDao {
+        - Connection conexao
+        + FuncionarioDao()
+        + cadastrar(funcionario: Funcionario) Funcionario
+        + alterar(funcionario: Funcionario) Funcionario
+        + buscarTodos() List~Funcionario~
+        + buscarPorNome(nome: String) List~Funcionario~
+        + buscarPorId(id: int) Funcionario
+        + excluir(funcionario: Funcionario) boolean
+    }
+
+    class TransacaoDao {
+        - Connection conexao
+        + Transacao()
+        + registrar(transacao: Transacao) Transacao
+        + listarPorData(conta: Conta, dataInicio: Date, dataFim: Date) List~Transacao~
+    }
+
+    class LoginDao {
+        - Connection conexao
+        + logar() Cliente
+    }
+
+    class ContaCorrenteDao {
+        - Connection conexao
+        + ContaCorrenteDao()
+        + cadastrar(contaCorrente: ContaCorrente) ContaCorrente
+        + alterar(contaCorrente: ContaCorrente) ContaCorrente
+        + buscarTodos() List~Agencia~
+        + alterarStatus(contaCorrente: ContaCorrente) ContaCorrente
+        + buscarPorConta() ContaCorrente
+    }
+
+    class ContaInvestimentoDao {
+        - Connection conexao
+    }
+
+    class RelatorioDao {
+        - Connection conexao
+    }
+
+    ContaPoupancaDao --|> ContaDao
+    ContaCorrenteDao --|> ContaDao
+    ContaInvestimentoDao --|> ContaDao
+```
+
+---
+
+## 🖥️ Diagrama da Camada View e Controller
+
+```mermaid
+classDiagram
+    %% Camada View
+    class formCadastroCliente
+    class cadastraClienteView
+
+    %% Camada Controller
+    class ClienteController {
+        + cadastrar() Cliente
+        + buscarTodos() List~Cliente~
+        + buscarPorNome() List~Cliente~
+        + buscarPorId() Cliente
+        + excluir() boolean
+        + alterarStatus() Cliente
+    }
+
+    class LoginController {
+        + logar(email: String, senha: String) Cliente
+    }
+
+    %% Relacionamentos
+    formCadastroCliente --> ClienteController : usa
+    cadastraClienteView --> ClienteController : interage
 ```
 
 ---
