@@ -21,7 +21,7 @@ public class Usuario {
     // A estratégia IDENTITY é usada para auto-incremento (ex: MySQL).
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id_usuario;
+    private long id;
 
     // Define a coluna 'login' como única e obrigatória.
     // Isso garante que dois usuários não possam ter o mesmo login (ex: e-mail ou CPF).
@@ -54,11 +54,11 @@ public class Usuario {
     // Eles são necessários para que o Spring e o JPA consigam manipular os dados.
 
     public long getId_usuario(){
-        return id_usuario;
+        return id;
     }
 
-    public void setId_usuario(Long id_usuario){
-        this.id_usuario = id_usuario;
+    public void setId_usuario(Long id){
+        this.id = id;
     }
 
     public String getLogin(){
