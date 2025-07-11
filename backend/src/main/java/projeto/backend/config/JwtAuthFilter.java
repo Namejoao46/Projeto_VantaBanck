@@ -1,7 +1,8 @@
 package projeto.backend.config;
 
 import java.io.IOException;
-import java.util.Collections;
+import java.util.stream.Collectors;
+import java.util.List;
 
 import org.springframework.lang.NonNull;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -17,32 +18,48 @@ import jakarta.servlet.http.HttpServletResponse;
 
 public class JwtAuthFilter extends OncePerRequestFilter {
 
-    @Override
-    protected void doFilterInternal( @NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull FilterChain filterChain)
-                                  throws ServletException, IOException {
-    
-        String authHeader = request.getHeader("Authorization");
+     @Override
+    protected void doFilterInternal(@NonNull HttpServletRequest request,
+                                @NonNull HttpServletResponse response,
+                                @NonNull FilterChain filterChain)
+                                throws ServletException, IOException {
 
-        if (authHeader != null && authHeader.startsWith("Bearer ")) {
-            String token = authHeader.substring(7);
-            try{
-                String login = JwtUtil.getLoginFromToken(token);
-                String tipo = JwtUtil.getTipoFromToken(token);
-                System.out.println("Tipo do usuário: " + tipo);
+    String authHeader = request.getHeader("Authorization");
 
-                SimpleGrantedAuthority authority = new SimpleGrantedAuthority("ROLE_" + tipo);
+    if (authHeader != null && authHeader.startsWith("Bearer ")) {
+        String token = authHeader.substring(7);
+        try {
+            System.out.println("🔐 Token recebido: " + token);
 
-                UsernamePasswordAuthenticationToken authentication =
-                    new UsernamePasswordAuthenticationToken(login, null, Collections.singletonList(authority));
+            String login = JwtUtil.getLoginFromToken(token);
+            List<String> roles = JwtUtil.getRolesFromToken(token);
 
-                    authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-                    SecurityContextHolder.getContext().setAuthentication(authentication);
+            System.out.println("👤 Login extraído: " + login);
+            System.out.println("🛡️ Roles extraídas: " + roles);
 
-            } catch (Exception e) {
-                response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-                return;
-            }
+            List<SimpleGrantedAuthority> authorities = roles.stream()
+                .map(role -> new SimpleGrantedAuthority("ROLE_" + role))
+                .collect(Collectors.toList());
+
+            System.out.println("✅ Authorities construídas: " + authorities);
+
+            UsernamePasswordAuthenticationToken authentication =
+                new UsernamePasswordAuthenticationToken(login, null, authorities);
+
+            authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+
+            System.out.println("🔓 Usuário autenticado com sucesso!");
+
+        } catch (Exception e) {
+            System.out.println("❌ Erro ao processar token: " + e.getMessage());
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            return;
         }
-        filterChain.doFilter(request, response);
+    } else {
+        System.out.println("⚠️ Nenhum token JWT encontrado no header Authorization.");
     }
+
+    filterChain.doFilter(request, response);
+}
 }

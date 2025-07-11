@@ -8,7 +8,6 @@ import projeto.backend.model.cliente.Cliente;
 
 public interface ClienteRepository extends JpaRepository<Cliente, Long>{
 
-    // Declaração do método para buscar cliente pelo login
     Optional<Cliente> findByUsuarioLogin(String login);
     
 }

@@ -1,6 +1,7 @@
 package projeto.backend.services.cliente;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import projeto.backend.dto.cliente.ClienteCadastroDTO;
@@ -24,11 +25,17 @@ public class ClienteService {
     @Autowired
     private ContaService contaService;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     public Cliente cadastrarCliente(ClienteCadastroDTO dto){
 
         // Recupera o usuário do DTO e define o tipo
         Usuario usuario = dto.getUsuario();
         usuario.setTipo("CLIENTE");
+
+        String senhaCriptografada = passwordEncoder.encode(usuario.getSenha());
+        usuario.setSenha(senhaCriptografada);
 
         // Recupera o endereço do DTO
         Endereco endereco = dto.getEndereco();

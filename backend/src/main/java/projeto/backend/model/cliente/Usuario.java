@@ -1,5 +1,7 @@
 package projeto.backend.model.cliente;
 
+import java.time.LocalDateTime;
+
 import jakarta.persistence.Column;
 
 // Importa as anotações da JPA (Jakarta Persistence API),
@@ -37,6 +39,9 @@ public class Usuario {
     // Esse campo indica o tipo de usuário (ex: CLIENTE ou FUNCIONARIO),
     // o que permite controlar permissões e acessos no sistema.
     private String tipo;
+
+    private int tentativasFalhas = 0;
+    private LocalDateTime bloqueadoAte;
     
     // Construtor vazio obrigatório para o JPA funcionar corretamente.
     // O JPA usa reflexão para instanciar objetos, então precisa de um construtor padrão.
@@ -44,10 +49,12 @@ public class Usuario {
 
     // Construtor com parâmetros para facilitar a criação de objetos manualmente.
     // Útil em testes ou quando você quiser criar um usuário diretamente no código.
-    public Usuario(String login, String senha, String tipo){
+    public Usuario(String login, String senha, String tipo, int tentativasFalhas, LocalDateTime bloqueadoAte){
         this.login = login;
         this.senha = senha;
         this.tipo = tipo;
+        this.tentativasFalhas = tentativasFalhas;
+        this.bloqueadoAte = bloqueadoAte;
     }
 
     // Getters e Setters permitem acessar e modificar os atributos da classe.
@@ -84,4 +91,21 @@ public class Usuario {
     public void setTipo(String tipo){
         this.tipo = tipo;
     }
+
+    public int getTentativasFalhas() {
+        return tentativasFalhas;
+    }
+
+    public void setTentativasFalhas(int tentativasFalhas) {
+        this.tentativasFalhas = tentativasFalhas;
+    }
+
+    public LocalDateTime getBloqueadoAte() {
+        return bloqueadoAte;
+    }
+
+    public void setBloqueadoAte(LocalDateTime bloqueadoAte) {
+        this.bloqueadoAte = bloqueadoAte;
+    }
+
 }
