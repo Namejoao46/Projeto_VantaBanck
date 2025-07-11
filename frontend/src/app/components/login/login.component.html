@@ -1,0 +1,9 @@
+<p>login works!</p>
+
+<h1>Tela do login</h1>
+
+<form (ngSubmit) = "logar()">
+    <input type="text" [(ngModel)] = "login" name="login" placeholder="Login" required>
+    <input type="password" [(ngModel)]="senha" name="senha" placeholder="Senha" required>
+    <button type="submit">ENTRAR</button>
+</form>
