@@ -6,20 +6,78 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    border-radius: 20px;
 }
 
 .cartao{
     width: 580px;
     height: 300px;
+    position: relative;
     border: 2px solid #2b97fa;
     box-shadow: 0 0 30px #2b97fa;
-    background: 
-      linear-gradient(135deg,#0000 20.5%,#2b97fa 0 29.5%,#0000 0) 0 11px,
-      linear-gradient( 45deg,#0000 8%,#2b97fa 0 17%, #0000 0 58%) 22px 0,
-      linear-gradient(135deg,#0000 8%,#2b97fa 0 17%, #0000 0 58%,#2b97fa 0 67%,#0000 0),        
-      linear-gradient( 45deg,#0000 8%,#2b97fa 0 17%, #0000 0 58%,#2b97fa 0 67%,#0000 0 83%,#2b97fa 0 92%,#0000 0),
+    border-radius: 20px;
+    background:
+      radial-gradient(35.36% 35.36% at 100% 25%,#0000 66%,#2b97fa 68% 70%,#0000 72%) 20px 20px/calc(2*20px) calc(2*20px),
+      radial-gradient(35.36% 35.36% at 0    75%,#0000 66%,#2b97fa 68% 70%,#0000 72%) 20px 20px/calc(2*20px) calc(2*20px),
+      radial-gradient(35.36% 35.36% at 100% 25%,#0000 66%,#2b97fa 68% 70%,#0000 72%) 0 0/calc(2*20px) calc(2*20px),
+      radial-gradient(35.36% 35.36% at 0    75%,#0000 66%,#2b97fa 68% 70%,#0000 72%) 0 0/calc(2*20px) calc(2*20px),
+      repeating-conic-gradient(#000117 0 25%,#0000 0 50%) 0 0/calc(2*20px) calc(2*20px),
+      radial-gradient(#0000 66%,#2b97fa 68% 70%,#0000 72%) 0 calc(20px/2)/20px 20px
       #000117;
-background-size: 44px 44px;
+}
 
+.cartao-title{
+    color: #2b97fa;
+    padding: 0 20px;
+    display: flex;
+}
 
+.nome1{
+    font-size: 40px;
+    font-weight: bolder;
+}
+
+.nome2{
+    font-size: 40px;
+}
+
+.cartao-numero{
+    position: absolute;
+    top: 120px;
+    left: 20px;
+    width: 520px;
+    font-size: 46px;
+    color: #2b97fa;
+    letter-spacing: 4px;
+    text-align: left;
+}
+
+.cartao-bandera{
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    font-size: 24px;
+    color: #2b97fa;
+}
+
+.cartao-bandera h2{
+    margin-bottom: 0px;
+}
+
+.cartao-validade{
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    text-align: left;
+    color: #2b97fa;
+    font-size: 16px;
+}
+
+.cartao-validade h3{
+    margin-bottom: 0px;
+}
+
+.cartao-validade h2{
+    margin-top: 0px;
+    margin-bottom: 0px;
 }
