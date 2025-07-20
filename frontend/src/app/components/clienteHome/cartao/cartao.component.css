@@ -1,0 +1,25 @@
+.conteiner{
+    border: 2px solid #2b97fa;
+    width: 650px;
+    height: 350px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cartao{
+    width: 580px;
+    height: 300px;
+    border: 2px solid #2b97fa;
+    box-shadow: 0 0 30px #2b97fa;
+    background: 
+      linear-gradient(135deg,#0000 20.5%,#2b97fa 0 29.5%,#0000 0) 0 11px,
+      linear-gradient( 45deg,#0000 8%,#2b97fa 0 17%, #0000 0 58%) 22px 0,
+      linear-gradient(135deg,#0000 8%,#2b97fa 0 17%, #0000 0 58%,#2b97fa 0 67%,#0000 0),        
+      linear-gradient( 45deg,#0000 8%,#2b97fa 0 17%, #0000 0 58%,#2b97fa 0 67%,#0000 0 83%,#2b97fa 0 92%,#0000 0),
+      #000117;
+background-size: 44px 44px;
+
+
+}

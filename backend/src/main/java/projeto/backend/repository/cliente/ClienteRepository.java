@@ -9,5 +9,5 @@ import projeto.backend.model.cliente.Cliente;
 public interface ClienteRepository extends JpaRepository<Cliente, Long>{
 
     Optional<Cliente> findByUsuarioLogin(String login);
-    
+    boolean existsByCpf(String cpf);
 }

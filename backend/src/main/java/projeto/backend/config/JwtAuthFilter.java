@@ -24,6 +24,14 @@ public class JwtAuthFilter extends OncePerRequestFilter {
                                 @NonNull FilterChain filterChain)
                                 throws ServletException, IOException {
 
+    if ("OPTIONS".equalsIgnoreCase(request.getMethod())) {
+        System.out.println("🔄 Requisição OPTIONS recebida — ignorando autenticação");
+        filterChain.doFilter(request, response);
+        return;
+    }
+    
+    System.out.println("🛡️ Verificando se tem JWT...");
+
     String authHeader = request.getHeader("Authorization");
 
     if (authHeader != null && authHeader.startsWith("Bearer ")) {

@@ -1,0 +1,15 @@
+.conteiner_title{
+    display: block;
+    text-align: justify;
+    padding: 20px;
+}
+
+.saudacao{
+    color: #13a8fe;
+    margin-bottom: 0;
+    font-size: 40px;
+}
+.saudacao-h4{
+    color: #13a8fe;
+    margin-top: 5px;
+}

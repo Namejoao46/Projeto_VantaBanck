@@ -2,9 +2,9 @@ package projeto.backend.dto.cliente;
 
 public class LoginResponseDTO {
 
-    private String login;
-    private String tipo;
-    private String token;
+    private final String login;
+    private final String tipo;
+    private final String token;
 
     public LoginResponseDTO(String login, String tipo, String token){
         this.login = login;

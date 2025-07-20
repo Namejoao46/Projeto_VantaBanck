@@ -9,8 +9,11 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,9 +24,11 @@ import projeto.backend.dto.ContaDTO.OperacaoComSenhaDTO;
 import projeto.backend.dto.ContaDTO.TransacaoDTO;
 import projeto.backend.dto.ContaDTO.TransferenciaComSenhaDTO;
 import projeto.backend.dto.cliente.ClienteCadastroDTO;
+import projeto.backend.model.cliente.Cliente;
 import projeto.backend.services.cliente.ClienteService;
 import projeto.backend.services.conta.ContaService;
 
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/api/clientes")
 public class ClienteController {
@@ -31,11 +36,23 @@ public class ClienteController {
     @Autowired
     private ClienteService clienteService;
 
-    // Endpoint para cadastrar um novo cliente
+    @Autowired
+    private ContaService contaService;
+
+    // ✅ Endpoint para cadastrar um novo cliente
     @PostMapping("/cadastrar")
-    public ResponseEntity<String> cadastrar(@RequestBody ClienteCadastroDTO dto){
-        clienteService.cadastrarCliente(dto);
-        return ResponseEntity.ok("Cliente cadastrado com sucesso!");
+    public ResponseEntity<Cliente> cadastrar(@RequestBody ClienteCadastroDTO dto){
+        System.out.println("Recebi requisição de cadastro: " + dto);
+        Cliente cliente = clienteService.cadastrarCliente(dto);
+        return ResponseEntity.ok(cliente); // Retorna o cliente como JSON
+    }
+
+    // ✅ Endpoint para atualizar cliente existente
+    @PutMapping("/atualizar/{id}")
+    public ResponseEntity<String> atualizar(@PathVariable Long id, @RequestBody ClienteCadastroDTO dto) {
+        System.out.println("Recebi requisição para atualizar cliente ID: " + id);
+        clienteService.atualizarCliente(id, dto);
+        return ResponseEntity.ok("Cliente atualizado com sucesso!");
     }
 
     @GetMapping
@@ -43,9 +60,6 @@ public class ClienteController {
         String login = authentication.getName(); // login extraído do token JWT
         return ResponseEntity.ok("✅ Acesso autorizado para o cliente: " + login);
     }
-
-    @Autowired
-    private ContaService contaService;
 
     // Endpoint para depósito
     @PostMapping("/depositar")

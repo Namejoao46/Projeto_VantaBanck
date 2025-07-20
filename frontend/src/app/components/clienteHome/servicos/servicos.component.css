@@ -1,0 +1,46 @@
+.conteiner{
+    width: 462px;
+    height: 240px;
+    border: 2px solid #2b97fa;
+
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1px;
+}
+
+.logo-1, .logo-2,
+.logo-3, .logo-4,
+.logo-5, .logo-6,
+.logo-7, .logo-8{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #2b97fa;
+    width: 114.6px;
+    height: 110px;
+}
+
+.logo-1 img, .logo-2 img,
+.logo-3 img, .logo-4 img,
+.logo-5 img, .logo-6 img,
+.logo-7 img, .logo-8 img{
+    height: 60px;
+    width: 70px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 30px;
+    margin-top: 5px;
+    margin-bottom: 0px;
+    padding: 5px;
+}
+
+.logo-1:hover, .logo-2:hover,
+.logo-3:hover, .logo-4:hover,
+.logo-5:hover, .logo-6:hover,
+.logo-7:hover, .logo-8:hover{
+    transform: scale(1.05);
+    box-shadow: 0 0 10px #2b97fa;
+    cursor: pointer;
+    transition: all 0.5s ease;
+}
+
+
