@@ -1,15 +1,56 @@
+.conteiner{
+    width: 1426px;
+    height: 653px;
+
+    display: flex;
+    align-items: flex-start;
+    gap: 2rem;
+    padding: 50px;
+    flex-wrap: wrap;
+}
+
 .conteiner_title{
-    display: block;
-    text-align: justify;
     padding: 20px;
 }
 
 .saudacao{
     color: #13a8fe;
-    margin-bottom: 0;
+    padding: 0 50px;
     font-size: 40px;
+    margin-top: 0;
+    margin-bottom: 0px;
 }
 .saudacao-h4{
     color: #13a8fe;
+    padding: 0 50px;
     margin-top: 5px;
+    margin-bottom: 0px;
+}
+
+.lado-esquerdo{
+    width: 500px;
+    height: 700px;
+    flex: 1;
+    min-width: 300px;
+    
+}
+
+.conteiner-saldo_servicos{
+    padding: 0 100px;
+}
+
+.saldo{
+    margin-top: 10px;
+    margin-bottom: 30px;
+}
+
+.lado-direito{
+    height: 700px;
+    flex: 1;
+    min-width: 300px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    border: 2px solid orangered;
+    
 }

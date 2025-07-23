@@ -1,23 +1,31 @@
 <div class="conteiner">
     <div class="saldo">
         <div class="valor-disponivel">
-            <h4>VALOR DISPONIVEL</h4>
-            <h1>R$450,00</h1>
-            <h5>R$0,00 A liberar</h5>
+            <h3>VALOR DISPONIVEL</h3>
+            <h1>{{ (dashboard?.saldoDisponivel ?? 0) | currency:'BRL' }}</h1>
+            <h4>{{ (dashboard?.saldoALiberar ?? 0) | currency:'BRL' }} a liberar</h4>
+            <div class="limite">
+                <h4>{{ (dashboard?.limite ?? 0) | currency:'BRL' }} Limite Disponivel</h4>
+            </div>
         </div>
         <div class="dados">
-            <h4>
+            <h3>
                 SEUS DADOS
-            </h4>
+            </h3>
         </div>
     </div>
     <hr>
     <div class="rendimento">
-        <h4>Rendeu R$0,00 nos ultimos 12 meses</h4>
+        <h3>Rendeu R$0,00 nos ultimos 12 meses</h3>
     </div>
     <hr>
     <div class="movimentacao">
-        <h4 class="depositar">Depositar dinheiro</h4>
-        <h4 class="transferir">Transferir dinheiro</h4>
+        <button class="depositar" [routerLink]="['/depositar']">
+            Depositar dinheiro
+        </button>
+        <button class="transferir" [routerLink]="['/transferir']">
+            Transferir dinheiro
+        </button>
     </div>
+    
 </div>

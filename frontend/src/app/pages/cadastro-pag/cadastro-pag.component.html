@@ -1,2 +1,48 @@
-<app-cadastro></app-cadastro>
-<p>cadastro-pag works!</p>
+
+<div class="menu_Conteiner">
+    <div class="cadastro">
+        <div class="fundo">
+
+            <div>
+                <h1>Cadastra - se</h1>
+            </div>
+            <div class="cadastro-login">
+                <form (ngSubmit) ="registrar()">
+
+                    <!-- 
+                    input = entrada
+                    ngmodel = Liga bidirecionalmente o campo e o nome no typescript
+                    name"nome" = obrigatorio para o ngModel funcionar, Indentifica o campo dentro do funcionario
+                    placeholder = como aparece dentro do campo antes de digitar
+                    required = nao envia ate o campo ser preenchido
+                    -->
+
+                    <!-- Dados pessoais -->
+                    <input [(ngModel)]="nome" name="nome" placeholder="Nome" required>
+                    <input [(ngModel)]="cpf" name="cpf" placeholder="CPF" required>
+                    <input [(ngModel)]="telefone" name="telefone" placeholder="Telefone" required>
+                    <input [(ngModel)]="salario" name="salario" placeholder="Salario" required>
+
+                    <!-- Dados de Login -->
+                    <input [(ngModel)]="login" name="login" placeholder="Login" required>
+                    <input [(ngModel)]="senha" name="senha" placeholder="Senha" required>
+
+                    <!-- Dados de Endereço -->
+                    <input [(ngModel)]="rua" name="rua" placeholder="Rua" required>
+                    <input [(ngModel)]="numero" name="numero" placeholder="Numero" required>
+                    <input [(ngModel)]="bairro" name="bairro" placeholder="Bairo" required>
+                    <input [(ngModel)]="cidade" name="cidade" placeholder="Cidade" required>
+                    <input [(ngModel)]="estado" name="estado" placeholder="estado" required>
+                    <input [(ngModel)]="cep" name="cep" placeholder="CEP"
+                    required>
+
+                    <button type="submit">Cadastrar Cliente</button>
+
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="painel">
+        <img src="https://i.postimg.cc/G3Nx03b8/Chat-GPT-Image-14-jul-2025-16-46-41.png" alt="">
+    </div>
+</div>

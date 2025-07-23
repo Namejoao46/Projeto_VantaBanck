@@ -1,9 +1,22 @@
-<div class="conteiner_title">
-    <h2 class="saudacao">OLÁ, JOÃO</h2>
-    <h4 class="saudacao-h4">SEJA BEM-VINDO AO VANTABANK</h4>
-</div>
 
+<div class="conteiner">
+    <div class="lado-esquerdo">
+        <div class="conteiner_title">
+            <h2 class="saudacao">OLÁ, JOÃO</h2>
+            <h4 class="saudacao-h4">SEJA BEM-VINDO AO VANTABANK</h4>
+        </div>
+        <div class="conteiner-saldo_servicos">
+            <div class="saldo">
+                <app-saldo></app-saldo>
+            </div>
+            <div class="servicos">
+                <app-servicos></app-servicos>
+            </div>
+        </div>
+    </div>
+    <div class="lado-direito">
+        <app-cartao></app-cartao>
+        <app-extrato></app-extrato>
+    </div>
+</div>
 <app-menu></app-menu>
-<app-saldo></app-saldo>
-<app-servicos></app-servicos>
-<app-cartao></app-cartao>

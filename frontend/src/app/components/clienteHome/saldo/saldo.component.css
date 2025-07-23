@@ -1,9 +1,9 @@
 .conteiner{
     border: 2px solid #2b97fa;
-    width: 450px;
-    height: 210px;
+    width: 500px;
+    height: 250px;
     position: relative;
-    border-radius: 0px 25px 0px 25px;
+    border-radius: 15px;
 }
 
 .valor-disponivel{
@@ -11,7 +11,7 @@
     padding: 0px 20px;
 }
 
-.valor-disponivel h4{
+.valor-disponivel h3{
     margin-top: 15px;
     margin-bottom: 0px;
 }
@@ -22,9 +22,10 @@
     margin-left: 6px;
 }
 
-.valor-disponivel h5{
+.valor-disponivel h4{
     font-weight: unset;
     margin-top: 0px;
+    margin-bottom: 0px;
 }
 
 .dados{
@@ -35,14 +36,14 @@
     font-weight: bold;
 }
 
-.dados h4{
+.dados h3{
     padding: 5px 9px;
     border-radius: 5px;
     background-color: rgba(255, 255, 255, 0.1);
     margin-top: 10px;
 }
 
-.dados h4:hover{
+.dados h3:hover{
     transform: scale(1.05);
     box-shadow: 0 0 10px #2b97fa;
     cursor: pointer;
@@ -55,11 +56,15 @@ hr{
     background: linear-gradient(to right, transparent, #2b97fa, transparent);
 }
 
-.rendimento h4{
+.rendimento h3{
     color: #2b97fa;
-    padding: 0px 20px;
-    margin-top: 10px;
-    margin-bottom: 10px;
+    padding: 0px 30px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+button{
+    all: unset;
 }
 
 .movimentacao{
@@ -69,16 +74,31 @@ hr{
     padding: 0 47px;
 }
 
-.movimentacao h4{
+.depositar, .transferir{
     background-color: rgba(255, 255, 255, 0.1);
     padding: 5px 9px;
     border-radius: 5px;
-    margin-top: 3px;
+    margin-top: 15px;
+    font-weight: bold;
+    font-size: 19px;
 }
 
-.movimentacao h4:hover{
+
+
+.depositar:hover, .transferir:hover{
     transform: scale(1.05);
     box-shadow: 0 0 10px #2b97fa;
     cursor: pointer;
     transition: all 0.3s ease;
+}
+
+.limite{
+    color: #2b97fa;
+    
+}
+
+.limite h4{
+    margin-top: 0px;
+    margin-bottom: 0px;
+    right: 10px;
 }

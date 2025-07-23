@@ -1,0 +1,33 @@
+<div class="conteiner">
+    <h2>EXTRATO</h2>
+    <hr>
+    <div class="filtros">
+        <label><input type="date" [(ngModel)]="filtro.inicio"></label>
+        <label> <input type="date" [(ngModel)]="filtro.fim"></label>
+        <button (click)="aplicarFiltro()">Filtrar</button>
+        <button (click)="carregarExtrato()">Limpar Filtro</button>
+    </div>
+    <hr>
+    <ul **ngIf="extrato.length > 0">
+        <ul **ngFor="let item of extrato">
+            <strong>
+                {{item.tipo =='SAQUE' ? '💸':
+                  item.tipo =='DEPOSITO' ? '💰':
+                  item.tipo =='TRANSFERENCIA' ? '🔁' : '?'}}
+                  {{ item.tipo }}
+            </strong>
+            - {{ item.valor | currency:'BRL':'symbol':'1.2-2' }}
+            <br>
+            
+            <small>{{ item.dataHora | date:'short' }}</small>
+        </ul>
+    </ul>
+
+    <p **ngIf="extrato.length === 0">⚠️ Nenhuma movimentação encontrada.</p>
+
+    <hr>
+
+    <h3>📁 Exportar Extrato</h3>
+    <button (click)="baixarCSV()">📥 Baixar Extrato CSV</button>
+    <button (click)="baixarPDF()">📥 Baixar Extrato PDF</button>
+</div>

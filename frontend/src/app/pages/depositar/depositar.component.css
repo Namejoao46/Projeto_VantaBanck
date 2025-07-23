@@ -1,0 +1,44 @@
+.conteiner{
+    color: #2b97fa;
+    border: 2px solid #2b97fa;
+    width: 1525px;
+    height: 750px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.pix{
+    border: 2px solid #2b97fa;
+    margin: 20px;
+    width: 700px;
+    height: 100px;
+    background: #212124;
+}
+
+.ted{
+    border: 2px solid #2b97fa;
+    margin: 20px;
+    width: 700px;
+    height: 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    background: #212124;
+}
+
+.seta{
+    background: rgba(255, 255, 255, 0.1);
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.seta:hover{
+    transform: scale(1.05);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    box-shadow: 0 0 10px #2b97fa;
+}

@@ -78,11 +78,17 @@ public class ClienteService {
         // Cria a conta com base no salário e associa ao cliente salvo
         Conta conta = contaService.criarContaParaCliente(salvo);
         contaRepository.save(conta);
+
+        salvo.setConta(conta);
+        clienteRepository.save(salvo);
+
         System.out.println("Conta criada com saldo inicial: " + conta.getSaldo());
         
         // Retorna o cliente salvo (com ID preenchido)
         return salvo;
     }
+
+
     public void atualizarCliente(Long id, ClienteCadastroDTO dto) {
         Cliente cliente = clienteRepository.findById(id)
             .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Cliente não encontrado"));

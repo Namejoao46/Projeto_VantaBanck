@@ -112,6 +112,18 @@ public class ClienteController {
         return new ResponseEntity<>(csv, headers, HttpStatus.OK);
     }
 
+    @GetMapping("/transacoes/exportar/pdf")
+    public ResponseEntity<byte[]> exportarTransacoesPDF(Authentication auth){
+        byte[] pdf = contaService.gerarPDFTransacoes(auth.getName());
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.set(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=extrato.pdf");
+        headers.setContentType(MediaType.APPLICATION_PDF);
+        headers.setContentLength(pdf.length);
+
+        return new ResponseEntity<>(pdf, headers, HttpStatus.OK);
+    }
+
     @PostMapping("/saque")
     @PreAuthorize("hasRole('CLIENTE')")
     public ResponseEntity<Void> sacar(@RequestBody OperacaoComSenhaDTO dto, Authentication auth){

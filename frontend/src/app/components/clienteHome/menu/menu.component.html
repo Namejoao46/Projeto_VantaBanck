@@ -1,1 +1,13 @@
+<div *ngIf="menuAberto" class="backdrop"  (click)="fecharMenu()"></div>
+<div class="botao_menu" (click)="alternarMenu()" [class.menuAberto]="menuAberto">
+    <span class="seta seta1"></span>
+    <span class="seta seta2"></span>
+    <span class="seta seta3"></span>
+</div>
+<div class="menu_lateral" [class.aberto]="menuAberto">
+    <li routerLink="/home">Início</li>
+    <li routerLink="/extrato">Extrato</li>
+    <li routerLink="/pix">PIX</li>
+    <li routerLink="/sair">Sair</li>
+</div>
 

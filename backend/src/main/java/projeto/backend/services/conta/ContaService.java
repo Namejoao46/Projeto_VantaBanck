@@ -140,6 +140,30 @@ public class ContaService {
         registrarTransacao(contaDestino, valor, "TRANSFERENCIA");
     }
 
+    public void realizarPix(PixDTO dto, String loginCliente){
+        Conta origem = contaRepository.findByLogin(loginCliente);
+
+        if (origem == null){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUNF, "Conta não encontrada.");
+        }
+
+        if (origem.getSaldo().compareTo(dto.getValor()) < 0) {
+            throw new ResponseStatusExeption(HttpStatus.BAD_REQUEST, " Saldo Insuficiente");
+        }
+
+        origem.setSaldo(origem.getSaldo().substract(dto.getValor()));
+        contaRepository.save(origem);
+
+        Transacao transacao = new Transacao();
+        transacao.setTipo("PIX");
+        transacao.setDescricao(dto.detDescricao());
+        transacao.setValor(dto.getValor().negate());
+        transacao.setConta(origem);
+        transacao.setData(LocalDateTime.now());
+
+        transacaoRepository.save(transacao);
+    }
+
     public List<TransacaoDTO> listaTransacoes(String login){
         Cliente cliente = clienteRepository.findByUsuarioLogin(login)
             .orElseThrow(() -> new RuntimeException("Cliente não encontrado"));
