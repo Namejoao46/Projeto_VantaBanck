@@ -17,7 +17,7 @@ public class Transacao {
     private Long id;
 
     private Double valor;
-
+    
     private String tipo;
 
     private LocalDateTime dataHora;
@@ -40,5 +40,6 @@ public class Transacao {
 
     public Conta getConta(){ return conta; }
     public void setConta( Conta conta){ this.conta = conta; }
+
 
 }

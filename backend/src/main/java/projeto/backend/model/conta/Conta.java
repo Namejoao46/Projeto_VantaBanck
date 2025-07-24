@@ -14,7 +14,6 @@ public class Conta {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private Double saldo;
     private Double credito;
 

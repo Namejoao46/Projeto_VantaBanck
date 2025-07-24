@@ -5,6 +5,7 @@ import { HomeComponent } from './pages/home/home.component';
 import { ClienteHomeComponent } from './pages/cliente-home/cliente-home.component';
 import { DepositarComponent } from './pages/depositar/depositar.component';
 import { TransferirComponent } from './pages/transferir/transferir.component';
+import { PixComponent } from './pages/pix/pix.component';
 
 export const routes: Routes = [
 
@@ -20,5 +21,7 @@ export const routes: Routes = [
 
     { path: 'depositar', component: DepositarComponent },
 
-    { path: 'transferir', component: TransferirComponent }
+    { path: 'transferir', component: TransferirComponent },
+
+    { path: 'pix', component: PixComponent}
 ];

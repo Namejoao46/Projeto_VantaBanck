@@ -15,9 +15,12 @@ import org.apache.pdfbox.pdmodel.font.PDType1Font;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
+import org.springframework.http.HttpStatus;
 
 import projeto.backend.dto.ContaDTO.DashboardDTO;
 import projeto.backend.dto.ContaDTO.FiltroTransacaoDTO;
+import projeto.backend.dto.ContaDTO.PixDTO;
 import projeto.backend.dto.ContaDTO.TransacaoDTO;
 import projeto.backend.model.cliente.Cliente;
 import projeto.backend.model.cliente.Usuario;
@@ -25,6 +28,7 @@ import projeto.backend.model.conta.Conta;
 import projeto.backend.model.conta.Transacao;
 import projeto.backend.repository.cliente.ClienteRepository;
 import projeto.backend.repository.conta.TransacaoRepository;
+import projeto.backend.repository.conta.ContaRepository;
 
 
 @Service
@@ -65,6 +69,9 @@ public class ContaService {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private ContaRepository contaRepository;
 
     // Método para realizar depósito
     public void depositar(String login, Double valor){
@@ -141,25 +148,27 @@ public class ContaService {
     }
 
     public void realizarPix(PixDTO dto, String loginCliente){
-        Conta origem = contaRepository.findByLogin(loginCliente);
+        Conta origem = contaRepository.findByCliente_Usuario_Login(loginCliente);
 
         if (origem == null){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUNF, "Conta não encontrada.");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Conta não encontrada.");
         }
 
-        if (origem.getSaldo().compareTo(dto.getValor()) < 0) {
-            throw new ResponseStatusExeption(HttpStatus.BAD_REQUEST, " Saldo Insuficiente");
+        double saldoAtual = origem.getSaldo();        // supondo que saldo seja do tipo double
+        double valorPix = dto.getValor();             // e PixDTO.valor também seja double
+
+        if (saldoAtual < valorPix) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Saldo insuficiente.");
         }
 
-        origem.setSaldo(origem.getSaldo().substract(dto.getValor()));
+        origem.setSaldo(saldoAtual - valorPix);       // subtrai o valor do Pix
         contaRepository.save(origem);
 
         Transacao transacao = new Transacao();
         transacao.setTipo("PIX");
-        transacao.setDescricao(dto.detDescricao());
-        transacao.setValor(dto.getValor().negate());
+        transacao.setValor(-valorPix);                // valor negativo para saída de saldo
         transacao.setConta(origem);
-        transacao.setData(LocalDateTime.now());
+        transacao.setDataHora(LocalDateTime.now());   // supondo que o campo seja 'dataHora'
 
         transacaoRepository.save(transacao);
     }

@@ -3,7 +3,8 @@ package projeto.backend.controller.conta;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import projeto.backend.dto.conta.PixDTO;
+
+import projeto.backend.dto.ContaDTO.PixDTO;
 import projeto.backend.services.conta.ContaService;
 
 import java.security.Principal;

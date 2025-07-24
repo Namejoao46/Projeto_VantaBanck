@@ -9,6 +9,10 @@
     gap: 1px;
 }
 
+button{
+    all: unset;
+}
+
 .logo-1, .logo-2,
 .logo-3, .logo-4,
 .logo-5, .logo-6,
