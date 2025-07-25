@@ -1,1 +1,25 @@
-<p>pix works!</p>
+<div class="conteiner">
+    <div>
+        <h1>Realizar PIX</h1>
+        <div class="destino">
+            <label>Chave destino:</label>
+            <input [(ngModel)] = "pixDTO.chaveDestino" placeholder = "Email, CPF, celular">
+        </div>
+        <div>
+            <label>Valor:</label>
+            <input [(ngModel)] = "pixDTO.valor" type = "number" placeholder="Ex: 150.00">
+        </div>
+        <div>
+            <label>Descrição:</label>
+            <input [(ngModel)] = "pixDTO.descricao" placeholder="Motivo do PIX">
+        </div>
+        <div>
+            <label>Senha:</label>
+            <input [(ngModel)] = "pixDTO.senha" type="password" placeholder="Confrme sua senha">
+        </div>
+
+        <button (click)="enviarPix()">Enviar PIX</button>
+    </div>
+</div>
+
+<app-menu></app-menu>

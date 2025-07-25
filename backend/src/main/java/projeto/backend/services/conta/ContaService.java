@@ -6,6 +6,7 @@ import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
@@ -18,16 +19,19 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.http.HttpStatus;
 
+import projeto.backend.dto.ContaDTO.ChavePixDTO;
 import projeto.backend.dto.ContaDTO.DashboardDTO;
 import projeto.backend.dto.ContaDTO.FiltroTransacaoDTO;
 import projeto.backend.dto.ContaDTO.PixDTO;
 import projeto.backend.dto.ContaDTO.TransacaoDTO;
 import projeto.backend.model.cliente.Cliente;
 import projeto.backend.model.cliente.Usuario;
+import projeto.backend.model.conta.ChavePix;
 import projeto.backend.model.conta.Conta;
 import projeto.backend.model.conta.Transacao;
 import projeto.backend.repository.cliente.ClienteRepository;
 import projeto.backend.repository.conta.TransacaoRepository;
+import projeto.backend.repository.conta.ChavePixRepository;
 import projeto.backend.repository.conta.ContaRepository;
 
 
@@ -72,6 +76,9 @@ public class ContaService {
 
     @Autowired
     private ContaRepository contaRepository;
+
+    @Autowired
+    private ChavePixRepository chavePixRepository;
 
     // Método para realizar depósito
     public void depositar(String login, Double valor){
@@ -147,30 +154,67 @@ public class ContaService {
         registrarTransacao(contaDestino, valor, "TRANSFERENCIA");
     }
 
-    public void realizarPix(PixDTO dto, String loginCliente){
-        Conta origem = contaRepository.findByCliente_Usuario_Login(loginCliente);
+    public void realizarPix(PixDTO dto, String loginCliente) {
+        // 1. Localiza o cliente origem pelo login (token JWT)
+        Cliente origem = clienteRepository.findByUsuarioLogin(loginCliente)
+            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Cliente origem não encontrado"));
 
-        if (origem == null){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Conta não encontrada.");
-        }
+        Conta contaOrigem = origem.getConta();
+        double valorPix = dto.getValor();
 
-        double saldoAtual = origem.getSaldo();        // supondo que saldo seja do tipo double
-        double valorPix = dto.getValor();             // e PixDTO.valor também seja double
-
-        if (saldoAtual < valorPix) {
+        // 2. Verifica saldo
+        if (contaOrigem.getSaldo() < valorPix) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Saldo insuficiente.");
         }
 
-        origem.setSaldo(saldoAtual - valorPix);       // subtrai o valor do Pix
-        contaRepository.save(origem);
+        // 3. Busca chave Pix de destino
+        Optional<ChavePix> chaveDestinoOpt = chavePixRepository.findByValor(dto.getChaveDestino());
 
-        Transacao transacao = new Transacao();
-        transacao.setTipo("PIX");
-        transacao.setValor(-valorPix);                // valor negativo para saída de saldo
-        transacao.setConta(origem);
-        transacao.setDataHora(LocalDateTime.now());   // supondo que o campo seja 'dataHora'
+        if (chaveDestinoOpt.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Chave Pix de destino não encontrada.");
+        }
 
-        transacaoRepository.save(transacao);
+        Cliente destino = chaveDestinoOpt.get().getCliente();
+        Conta contaDestino = destino.getConta();
+
+        // 4. Debita da conta origem
+        contaOrigem.setSaldo(contaOrigem.getSaldo() - valorPix);
+        contaRepository.save(contaOrigem);
+        registrarTransacao(contaOrigem, valorPix, "PIX ENVIO");
+
+        // 5. Credita na conta destino
+        contaDestino.depositar(valorPix);
+        contaRepository.save(contaDestino);
+        registrarTransacao(contaDestino, valorPix, "PIX RECEBIMENTO");
+    }
+
+    public void cadastrarChavePix(ChavePixDTO dto, String login){
+        Cliente cliente = clienteRepository.findByUsuarioLogin(login)
+            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Cliente não encontrado"));
+        
+            if ( chavePixRepository.findByClienteId(cliente.getId()). isPresent()){
+                    throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Você já possui uma chave Pix.");
+            }
+
+            ChavePix chave = new ChavePix();
+            chave.setCliente(cliente);
+            chave.setTipo(dto.getTipo());
+            chave.setValor(dto.getValor());
+
+            chavePixRepository.save(chave);
+    }
+
+    public Optional<ChavePixDTO> consultarMinhaChavePix(String login){
+        Cliente cliente = clienteRepository.findByUsuarioLogin(login)
+            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Cliente não Encontrado"));
+        
+        return chavePixRepository.findByClienteId(cliente.getId())
+            .map(chave -> {
+                ChavePixDTO dto = new ChavePixDTO();
+                dto.setTipo(chave.getTipo());
+                dto.setValor(chave.getValor());
+                return dto;
+            });
     }
 
     public List<TransacaoDTO> listaTransacoes(String login){

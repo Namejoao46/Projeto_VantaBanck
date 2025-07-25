@@ -1,24 +1,71 @@
-.conteiner{
+/* Estilo geral */
+.conteiner {
     color: #2b97fa;
-    border: 2px solid #2b97fa;
     width: 1525px;
     height: 750px;
-
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    font-family: 'Poppins', sans-serif;
 }
 
-.pix{
+a {
+    all: unset;
+}
+
+/* PIX */
+.pix {
+    position: relative;
     border: 2px solid #2b97fa;
     margin: 20px;
     width: 700px;
-    height: 100px;
-    background: #212124;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(43, 151, 250, 0.1);
+    padding: 10px;
 }
 
-.ted{
+.pix-title {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    margin: 0;
+    color: #2b97fa;
+    font-weight: bold;
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+}
+
+.pix-info {
+    width: 1000px;
+    height: 50px;
+    margin-top: 30px;
+    padding: 0px ;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    justify-content: space-between;
+}
+.pix-dados{
+    display: flex;
+    align-items: center;
+}
+
+.pix-dados p {
+    margin: 0;
+    font-size: 16px;
+    color: #2b97fa;
+    font-weight: bold;
+    padding: 0;
+}
+
+/* TED */
+.ted {
     border: 2px solid #2b97fa;
     margin: 20px;
     width: 700px;
@@ -27,18 +74,46 @@
     justify-content: space-between;
     align-items: center;
     padding: 0 20px;
-    background: #212124;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(43, 151, 250, 0.1);
+    transition: background 0.3s ease;
 }
 
-.seta{
+.ted:hover {
+    background-color: #e7f3ff;
+}
+
+/* Botões */
+.btn {
+    background-color: #2b97fa;
+    color: #fff;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+}
+
+.btn:hover {
+    
+    font-weight: bold;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    transition: background 0.3s ease, transform 0.2s ease;
+    background-color: #1c6fc5;
+    transform: scale(1.05);
+    cursor: pointer;
+}
+
+/* Seta */
+.seta {
     background: rgba(255, 255, 255, 0.1);
     padding: 5px;
     border-radius: 5px;
+    font-size: 1.5rem;
+    color: #2b97fa;
+    transition: all 0.3s ease;
 }
 
-.seta:hover{
+.seta:hover {
     transform: scale(1.05);
-    transition: all 0.3s ease;
     cursor: pointer;
     box-shadow: 0 0 10px #2b97fa;
 }

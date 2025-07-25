@@ -6,6 +6,7 @@ import { ClienteHomeComponent } from './pages/cliente-home/cliente-home.componen
 import { DepositarComponent } from './pages/depositar/depositar.component';
 import { TransferirComponent } from './pages/transferir/transferir.component';
 import { PixComponent } from './pages/pix/pix.component';
+import { PixCadastroComponent } from './pages/pix-cadastro/pix-cadastro.component';
 
 export const routes: Routes = [
 
@@ -23,5 +24,7 @@ export const routes: Routes = [
 
     { path: 'transferir', component: TransferirComponent },
 
-    { path: 'pix', component: PixComponent}
+    { path: 'pix', component: PixComponent},
+
+    { path: 'pixCadastro', component: PixCadastroComponent }
 ];

@@ -1,7 +1,24 @@
 <div class="conteiner">
     <div class="pix">
-        <h3>Com pix</h3>
+        <h2 class="pix-title">Com pix</h2>
+        <div class="pix-info">
+            <ng-container *ngIf="minhaChave; else semChave">
+                <div class="pix-dados">
+                    <p> Tipo: {{ minhaChave.tipo }}</p>
+                    <p> Valor: {{ minhaChave.valor }}</p>
+                </div>
+                <button class="btn">Copiar chave</button>
+            </ng-container>
+            <ng-template #semChave>
+                <div class="pix-dados">
+                    <p>Você ainda não cadastrou sua chave Pix</p>
+                </div>   
+                <a routerLink="/pixCadastro" class="btn">Cadastrar agora</a>
+                
+            </ng-template>
+        </div>
     </div>
+
     <div class="ted">
         <h3>Com dados da sua conta via TED</h3>
         <h2 class="seta">=></h2>

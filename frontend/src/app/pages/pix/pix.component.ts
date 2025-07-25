@@ -3,12 +3,14 @@ import { PixService } from '../../services/pix.service';
 import { PixDTO } from '../../models/PixDTO';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { MenuComponent } from "../../components/clienteHome/menu/menu.component";
+import { FormsModule } from '@angular/forms';
 
 
 @Component({
   selector: 'app-pix',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, MenuComponent, FormsModule],
   templateUrl: './pix.component.html',
   styleUrl: './pix.component.css'
 })
