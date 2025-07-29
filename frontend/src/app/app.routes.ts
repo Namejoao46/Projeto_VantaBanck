@@ -8,6 +8,7 @@ import { TransferirComponent } from './pages/transferir/transferir.component';
 import { PixComponent } from './pages/pix/pix.component';
 import { PixCadastroComponent } from './pages/pix-cadastro/pix-cadastro.component';
 import { DadosClienteComponent } from './pages/dados-cliente/dados-cliente.component';
+import { TedComponent } from './pages/ted/ted.component';
 
 export const routes: Routes = [
 
@@ -29,5 +30,7 @@ export const routes: Routes = [
 
     { path: 'pixCadastro', component: PixCadastroComponent },
 
-    { path: 'dados-cliente', component: DadosClienteComponent}
+    { path: 'dados-cliente', component: DadosClienteComponent},
+
+    { path: 'ted', component: TedComponent }
 ];

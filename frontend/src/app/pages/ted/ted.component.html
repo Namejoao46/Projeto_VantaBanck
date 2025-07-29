@@ -1,0 +1,18 @@
+<app-menu></app-menu>
+
+<div class="conteiner">
+    <div class="Transferencia">
+        <h1>Transferência TED</h1>
+
+        <label>Login bancário do destinatario</label>
+        <input [(ngModel)] = "dto.destinoLogin" placeholder="Identificador Bancario">
+        <label>Valor (mínimo R$10,00):</label>
+        <input type ="number" [(ngModel)] = "dto.valor" placeholder="Valor em reais">
+        <label>Senha bancária:</label>
+        <input type="password" [(ngModel)]= "dto.senha" placeholder="Digite sua senha">
+
+        <button (click)="enviarTed()">Realizar TED</button>
+
+        <p *ngIf="erro" class="erro-msg">❌ {{ erro }} </p>
+    </div>
+</div>
