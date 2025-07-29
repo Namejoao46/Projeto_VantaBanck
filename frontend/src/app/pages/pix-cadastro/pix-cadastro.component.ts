@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ChavePixDTO } from '../../models/chave-pix-dto';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
@@ -13,7 +13,7 @@ import { PixService } from '../../services/pix.service';
   templateUrl: './pix-cadastro.component.html',
   styleUrl: './pix-cadastro.component.css'
 })
-export class PixCadastroComponent {
+export class PixCadastroComponent implements OnInit {
   token: string = '';
   pixDTO: ChavePixDTO = {
     tipo: '',

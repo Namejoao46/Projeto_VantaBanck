@@ -1,6 +1,5 @@
 .conteiner{
     color: #2b97fa;
-    border: 2px solid #2b97fa;
     width: 1525px;
     height: 750px;
 
@@ -8,4 +7,58 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+.cadastro{
+  width: 400px;
+  padding: 20px;
+  border: 2px solid #2b97fa;
+  background-color: transparent;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(43, 151, 250, 0.2);
+}
+
+.cadastro h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #2b97fa;
+}
+
+.cadastro label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: #2b97fa;
+}
+
+/* 📋 Select e Input */
+.cadastro select,
+.cadastro input {
+  font-weight: bold;
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 15px;
+  border: 1px solid #2b97fa;
+  background-color: #f0f8ff; /* fundo da página */
+  color: #2b97fa;
+  border-radius: 5px;
+  outline: none;
+}
+
+/* 🖱️ Botão */
+.cadastro button {
+  width: 100%;
+  padding: 10px;
+  background-color: #2b97fa;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.cadastro button:hover {
+  transform: scale(1.05);
+  background-color: #1c7ec4;
+  transition: all 0.3s ease;
 }

@@ -4,11 +4,12 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { ChavePixDTO } from '../../models/chave-pix-dto';
 import { PixService } from '../../services/pix.service';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-depositar',
   standalone: true,
-  imports: [MenuComponent, CommonModule, RouterModule],
+  imports: [MenuComponent, CommonModule, RouterModule, FormsModule],
   templateUrl: './depositar.component.html',
   styleUrl: './depositar.component.css'
 })

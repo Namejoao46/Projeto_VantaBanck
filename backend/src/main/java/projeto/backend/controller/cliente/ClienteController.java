@@ -1,5 +1,6 @@
 package projeto.backend.controller.cliente;
 
+import java.security.Principal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,7 @@ import projeto.backend.dto.ContaDTO.OperacaoComSenhaDTO;
 import projeto.backend.dto.ContaDTO.TransacaoDTO;
 import projeto.backend.dto.ContaDTO.TransferenciaComSenhaDTO;
 import projeto.backend.dto.cliente.ClienteCadastroDTO;
+import projeto.backend.dto.cliente.DadosClienteCompletoDTO;
 import projeto.backend.model.cliente.Cliente;
 import projeto.backend.services.cliente.ClienteService;
 import projeto.backend.services.conta.ContaService;
@@ -138,5 +140,11 @@ public class ClienteController {
         
         return ResponseEntity.ok().build();
     }
-    
+
+    @GetMapping("/cliente/dados")
+    public ResponseEntity<DadosClienteCompletoDTO> dadosCliente(Principal principal) {
+    String login = principal.getName();
+    return ResponseEntity.ok(contaService.consultarDadosCadastrais(login));
+    }
+
 }

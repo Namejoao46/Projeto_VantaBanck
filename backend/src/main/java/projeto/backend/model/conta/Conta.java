@@ -16,6 +16,7 @@ public class Conta {
     private Long id;
     private Double saldo;
     private Double credito;
+    private String agencia;
 
     @OneToOne
     @JoinColumn(name= "cliente_id")
@@ -29,6 +30,9 @@ public class Conta {
 
     public Double getCredito(){ return credito; }
     public void setCredito(Double credito){this.credito = credito; }
+
+    public String getAgencia(){ return agencia; }
+    public void setAgencia(String agencia) { this.agencia = agencia; }
 
     public Cliente getCliente(){ return cliente; }
     public void setCliente( Cliente cliente){ this.cliente = cliente; }

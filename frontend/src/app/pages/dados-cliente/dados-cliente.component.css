@@ -10,7 +10,11 @@
     font-family: 'Poppins', sans-serif;
 }
 
-a, button {
+.agrupando h1{
+    margin-left: 10px;
+}
+
+a {
     all: unset;
 }
 
@@ -57,33 +61,13 @@ a, button {
 }
 
 .pix-dados p {
-    margin: 0;
+    margin: 0 15px;
     font-size: 16px;
     color: #2b97fa;
     font-weight: bold;
-    padding: 0;
+    white-space: nowrap;
 }
 
-/* TED */
-.ted {
-    border: 2px solid #2b97fa;
-    margin: 20px;
-    width: 700px;
-    height: 60px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(43, 151, 250, 0.1);
-    transition: background 0.3s ease;
-}
-
-.ted:hover {
-    background-color: #e7f3ff;
-}
-
-/* Botões */
 .btn {
     background-color: #2b97fa;
     color: #fff;
@@ -102,18 +86,30 @@ a, button {
     cursor: pointer;
 }
 
-/* Seta */
-.seta {
-    background: rgba(255, 255, 255, 0.1);
-    padding: 5px;
-    border-radius: 5px;
-    font-size: 1.5rem;
-    color: #2b97fa;
-    transition: all 0.3s ease;
+.email{
+    position: relative;
+    border: 2px solid #2b97fa;
+    margin: 20px;
+    width: 700px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(43, 151, 250, 0.1);
+    padding: 10px;
 }
 
-.seta:hover {
-    transform: scale(1.05);
-    cursor: pointer;
-    box-shadow: 0 0 10px #2b97fa;
+.dadosConta{
+    position: relative;
+    border: 2px solid #2b97fa;
+    margin: 20px;
+    width: 700px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(43, 151, 250, 0.1);
+    padding: 10px;
 }

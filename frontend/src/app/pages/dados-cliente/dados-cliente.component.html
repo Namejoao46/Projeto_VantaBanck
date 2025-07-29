@@ -1,0 +1,44 @@
+<app-menu></app-menu>
+
+<div class="conteiner">
+    <div class="agrupando">
+        <h1>Seus dados para receber dinheiro</h1>
+        <div class="pix">
+            <h1 class="pix-title">Sua Chave: </h1>
+            <div class="pix-info">
+                <ng-container *ngIf="minhaChave; else semChave">
+                    <div class="pix-dados">
+                        <p> Tipo: {{ minhaChave.tipo }}</p>
+                        <p> Valor: {{ minhaChave.valor }}</p>
+                    </div>
+                    <button class="btn">Copiar chave</button>
+                </ng-container>
+                <ng-template #semChave>
+                    <div class="pix-dados">
+                        <p>Você ainda não cadastrou sua chave Pix</p>
+                    </div>   
+                    <a routerLink="/pixCadastro" class="btn">Cadastrar agora</a>
+                </ng-template>
+            </div>
+        </div>
+        <div class="email">
+            <h1 class="pix-title">Email da conta VantaBank</h1>
+            <div class="pix-info">
+                <div class="pix-dados">
+                    <p>Email: {{ meuEmail }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="dadosConta">
+            <h1 class="pix-title">Dados da sua conta VantaBank</h1>
+            <div class="pix-info">
+                <div class="pix-dados">
+                    <p>Nome: {{ dadosConta.nome }}</p>
+                    <p>Banco: {{ dadosConta.banco }}</p>
+                    <p>Agência: {{ dadosConta.agencia }}</p>
+                    <p>Número da conta: {{dadosConta.numeroConta }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,5 +1,23 @@
-<div class="conteiner">
+<app-menu></app-menu>
 
+<div class="conteiner">
+    <div class="cadastro">
+        <h1>Cadastro de Chave Pix</h1>
+
+        <label for="tipo">Tipo da Chave:</label>
+        <select id="tipo" [(ngModel)] = "pixDTO.tipo">
+            <option value="">Selecione</option>
+            <option value="CPF">CPF</option>
+            <option value="EMAIL">Email</option>
+            <option value="CELULAR">Celular</option>
+            <option value="ELEATORIA">Aleatoria</option>
+        </select>
+
+        <label for="valor">Valor:</label>
+        <input id="valor" [(ngModel)]= "pixDTO.valor" placeholder="Digite a chave">
+
+        <button (click)="enviarChavePix()">Cadastrar</button>
+    </div>
 </div>
 
-<app-menu></app-menu>
+

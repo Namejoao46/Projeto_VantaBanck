@@ -24,6 +24,7 @@ import projeto.backend.dto.ContaDTO.DashboardDTO;
 import projeto.backend.dto.ContaDTO.FiltroTransacaoDTO;
 import projeto.backend.dto.ContaDTO.PixDTO;
 import projeto.backend.dto.ContaDTO.TransacaoDTO;
+import projeto.backend.dto.cliente.DadosClienteCompletoDTO;
 import projeto.backend.model.cliente.Cliente;
 import projeto.backend.model.cliente.Usuario;
 import projeto.backend.model.conta.ChavePix;
@@ -79,6 +80,22 @@ public class ContaService {
 
     @Autowired
     private ChavePixRepository chavePixRepository;
+
+    public DadosClienteCompletoDTO consultarDadosCadastrais(String login){
+        Cliente cliente = clienteRepository.findByUsuarioLogin(login)
+            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Cliente não Encontrado"));
+        
+        Conta conta = cliente.getConta();
+
+        DadosClienteCompletoDTO dto = new DadosClienteCompletoDTO();
+        dto.setNome(cliente.getNome());
+        dto.setEmail(cliente.getUsuario().getLogin());
+        dto.setCpf(cliente.getCpf());
+        dto.setBanco("VantaBank");
+        dto.setAgencia(conta.getAgencia());
+
+        return dto;
+    }
 
     // Método para realizar depósito
     public void depositar(String login, Double valor){
