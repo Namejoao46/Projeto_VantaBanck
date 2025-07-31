@@ -20,6 +20,7 @@ import org.springframework.web.server.ResponseStatusException;
 import org.springframework.http.HttpStatus;
 
 import projeto.backend.dto.ContaDTO.ChavePixDTO;
+import projeto.backend.dto.ContaDTO.CofrinhoDTO;
 import projeto.backend.dto.ContaDTO.DashboardDTO;
 import projeto.backend.dto.ContaDTO.FiltroTransacaoDTO;
 import projeto.backend.dto.ContaDTO.PixDTO;
@@ -28,11 +29,13 @@ import projeto.backend.dto.cliente.DadosClienteCompletoDTO;
 import projeto.backend.model.cliente.Cliente;
 import projeto.backend.model.cliente.Usuario;
 import projeto.backend.model.conta.ChavePix;
+import projeto.backend.model.conta.Cofrinho;
 import projeto.backend.model.conta.Conta;
 import projeto.backend.model.conta.Transacao;
 import projeto.backend.repository.cliente.ClienteRepository;
 import projeto.backend.repository.conta.TransacaoRepository;
 import projeto.backend.repository.conta.ChavePixRepository;
+import projeto.backend.repository.conta.CofrinhoRepository;
 import projeto.backend.repository.conta.ContaRepository;
 
 
@@ -80,6 +83,9 @@ public class ContaService {
 
     @Autowired
     private ChavePixRepository chavePixRepository;
+
+    @Autowired
+    private CofrinhoRepository cofrinhoRepository;
 
     public DadosClienteCompletoDTO consultarDadosCadastrais(String login){
         Cliente cliente = clienteRepository.findByUsuarioLogin(login)
@@ -426,6 +432,39 @@ public class ContaService {
 
     }
 
+    public Double calcularRendimento(LocalDate inicio, LocalDate retirada, Double valor) {
+        long dias = java.time.temporal.ChronoUnit.DAYS.between(inicio, retirada);
+        double taxaDiaria = 0.0005; // exemplo: 0.05% ao dia
+        return valor * Math.pow(1 + taxaDiaria, dias) - valor;
+    }
+
+    public Cofrinho criarCofrinho(CofrinhoDTO dto, Cliente cliente){
+        Cofrinho cofrinho = new Cofrinho();
+        cofrinho.setNome(dto.getNome());
+        cofrinho.setImagemUrl(dto.getImagem());
+        cofrinho.setValorGuardado(dto.getValor());
+        cofrinho.setDataInicio(LocalDate.now());
+        cofrinho.setDataRetirada(dto.getDataRetirada());
+
+        Double rendimento = calcularRendimento(
+            cofrinho.getDataInicio(),
+            cofrinho.getDataRetirada(),
+            cofrinho.getValorGuardado()
+        );
+        cofrinho.setRendimento(rendimento);
+
+        cofrinho.setDono(cliente);
+        cliente.getCofrinhos().add(cofrinho);
+
+        return cofrinhoRepository.save(cofrinho);
+    }
+
+    public List<Cofrinho> listarCofrinhosDoUsuario(String login) {
+        Cliente cliente = clienteRepository.findByUsuarioLogin(login)
+            .orElseThrow(() -> new RuntimeException("Cliente não encontrado"));
+        return cliente.getCofrinhos();
+    }
+
+    
 
 }
-

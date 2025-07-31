@@ -1,0 +1,26 @@
+<app-menu></app-menu>
+
+<div class="conteiner">
+    <div class="simulacao">
+        <h1>Simule seu Empréstimo</h1>
+
+        <label>Valor solicitado:</label>
+        <input type="number" [(ngModel)]="valorSolicitado">
+        
+        <label>Meses para pagar:</label>
+        <input type="number" [(ngModel)]="meses">
+
+        <button (click)="simular()">Simular</button>
+    </div>
+    <div *ngIf="resultado" class="simulacao">
+        <h1>Resultado</h1>
+
+        <p>Faixa Salarial: {{ resultado.faixaSalario }} </p>
+        <p>Limite Permitido: R$ {{ resultado.limiteDisponivel}} </p>
+        <p>Taxa de Juros: {{ (resultado.taxaJurosMensal * 100).toFixed(2) }}% ao mês</p>
+        <p>Total a pagar: R$ {{ resultado.valorFinal.toFixed(2) }} </p>
+        <p>Parcelas: {{ resultado.meses}} x R$ {{ resultado.parcelaMensal.toFixed(2) }} </p>
+
+        <button (click)="aceitar()">Aceitar Empréstimo</button>
+    </div>
+</div>

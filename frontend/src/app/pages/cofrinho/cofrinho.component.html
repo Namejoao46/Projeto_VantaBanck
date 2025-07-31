@@ -1,0 +1,31 @@
+<app-menu></app-menu>
+
+<div class="conteiner">
+    <div class="cofrinho">
+        <h1>Criar Cofrinho</h1>
+        <label>Nome do Cofrinho:</label>
+        <input [(ngModel)]="dto.nome" placeholder="ex: Viagem dos sonhos">
+        <label>Imagem:</label>
+        <input type="file" (change)="carregarImagem($event)" >
+        <label>Quanto deseja guardar:</label>
+        <input type="number" [(ngModel)]="dto.valor">
+        <label>Data de retirada</label>
+        <input type="date" [(ngModel)]="dto.dataRetirada">
+
+        <button (click)="criarCofrinho()">Criar Cofrinho</button>
+    </div>
+    <div class="cofrinho">
+        <h1>Meus Cofrinhos</h1>
+        <ul *ngIf="cofrinhos.length > 0; else vazio">
+            <li *ngFor="let c of cofrinhos">
+                <strong>{{ c.nome }}</strong> - R$ {{c.valor}}
+                <br>
+                <img *ngIf="c.imagem" [src]="c.imagem" alt="Imagem do Cofrinho" style="max-width: 150px; margin-top: 8px;">
+            </li>
+        </ul>
+
+        <ng-template #vazio>
+            <p>Você ainda não tem cofrinhos cadastrados.</p>
+        </ng-template>
+    </div>
+</div>

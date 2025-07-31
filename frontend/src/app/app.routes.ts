@@ -9,6 +9,9 @@ import { PixComponent } from './pages/pix/pix.component';
 import { PixCadastroComponent } from './pages/pix-cadastro/pix-cadastro.component';
 import { DadosClienteComponent } from './pages/dados-cliente/dados-cliente.component';
 import { TedComponent } from './pages/ted/ted.component';
+import { SaqueComponent } from './pages/saque/saque.component';
+import { CofrinhoComponent } from './pages/cofrinho/cofrinho.component';
+import { EmprestimoComponent } from './pages/emprestimo/emprestimo.component';
 
 export const routes: Routes = [
 
@@ -32,5 +35,11 @@ export const routes: Routes = [
 
     { path: 'dados-cliente', component: DadosClienteComponent},
 
-    { path: 'ted', component: TedComponent }
+    { path: 'ted', component: TedComponent },
+
+    { path: 'saque', component: SaqueComponent },
+
+    { path: 'cofrinho', component: CofrinhoComponent },
+
+    { path: 'emprestimo', component: EmprestimoComponent }
 ];

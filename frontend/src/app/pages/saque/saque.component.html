@@ -1,0 +1,17 @@
+<app-menu></app-menu>
+
+<div class="conteiner">
+    <div class="saque">
+        <h1>Saque Bancário</h1>
+
+        <label>Valor do saque:</label>
+        <input type="number" [(ngModel)]="saque.valor" placeholder="Valor (mínimo R$10)" min="10">
+
+        <label>Senha da conta:</label>
+        <input type="password" [(ngModel)]="saque.senha" placeholder="Digite sua senha">
+
+        <button [disabled]="loading" (click)="realizarSaque()">Sacar</button>
+
+        <p *ngIf="erro" class="erro-msg">❌ {{ erro }}</p>
+    </div>
+</div>

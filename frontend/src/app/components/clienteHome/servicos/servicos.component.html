@@ -1,6 +1,6 @@
 <div class="conteiner">
     <button>
-        <div class="logo-1">
+        <div class="logo-1" [routerLink]="['/cofrinho']">
             <img src="https://i.postimg.cc/sX46hF1F/piggy-bank.png" alt="">
             <h5>COFRINHO</h5>
         </div>
@@ -18,7 +18,7 @@
             <h5>DEPOSITAR</h5>
         </div>
     </button>
-    <button>
+    <button [routerLink]="['/saque']">
         <div class="logo-4">
             <img src="https://i.postimg.cc/y8k7yKqz/hand-withdraw.png" alt="">
             <h5>SACAR</h5>
@@ -43,7 +43,7 @@
         </div>
     </button>
     <button>
-        <div class="logo-8">
+        <div class="logo-8" [routerLink]="['/emprestimo']">
             <img src="https://i.postimg.cc/rmtJ1Kjt/hand-coins.png" alt="">
             <h5>EMPRESTIMO</h5>
         </div>

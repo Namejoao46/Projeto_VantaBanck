@@ -1,6 +1,7 @@
 package projeto.backend.model.cliente;
 
 import java.time.LocalDate;
+import java.util.List;
 
 //import jakarta.annotation.Generated;
 import jakarta.persistence.CascadeType;
@@ -10,7 +11,9 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
+import projeto.backend.model.conta.Cofrinho;
 import projeto.backend.model.conta.Conta;
 
 @Entity  // Indica que essa classe será mapeada como uma tabela no banco de dados
@@ -46,11 +49,14 @@ public class Cliente {
     @OneToOne(mappedBy= "cliente", cascade = CascadeType.ALL)
     private Conta conta; 
 
+    @OneToMany(mappedBy = "dono", cascade = CascadeType.ALL)
+    private List<Cofrinho> cofrinhos;
+
     // Construtor vazio necessário para o JPA
     public Cliente() {}
 
     // Construtor com todos os campos (opcional, útil para testes ou criação manual)
-    public Cliente(String nome, String cpf, LocalDate dataNascimento, String telefone, Double salario, String funcao, Usuario usuario, Endereco endereco, Conta conta){
+    public Cliente(String nome, String cpf, LocalDate dataNascimento, String telefone, Double salario, String funcao, Usuario usuario, Endereco endereco, Conta conta, List<Cofrinho> cofrinhos){
         this.nome = nome;
         this.cpf = cpf;
         this.dataNascimento = dataNascimento;
@@ -60,9 +66,9 @@ public class Cliente {
         this.usuario = usuario;
         this.endereco = endereco;
         this.conta = conta;
-
+        this.cofrinhos = cofrinhos;
     }
-
+    
     // Getters e Setters para acessar e modificar os atributos
     public Long getId (){ return id; }
     public void setId(Long id){ this.id = id; }
@@ -76,7 +82,7 @@ public class Cliente {
     public LocalDate getDataNascimento(){ return dataNascimento; }
     public void setDataNascimento(LocalDate dataNascimento){ this.dataNascimento = dataNascimento; }
 
-    public String getTelegone(){ return telefone; }
+    public String getTelefone(){ return telefone; }
     public void setTelefone(String telefone){ this.telefone = telefone; }
 
     public Double getSalario(){ return salario; }
@@ -93,5 +99,8 @@ public class Cliente {
 
     public Conta getConta() { return conta; }
     public void setConta(Conta conta) { this.conta = conta; }
+
+    public List<Cofrinho> getCofrinhos() { return cofrinhos; }
+    public void setCofrinhos(List<Cofrinho> cofrinhos) { this.cofrinhos = cofrinhos; }
     
 }
